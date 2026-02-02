@@ -1,0 +1,8 @@
+venv/
+build/
+__pycache__/
+*.user
+*.ply
+*.npz
+data/
+.vscode/

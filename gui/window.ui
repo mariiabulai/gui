@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>window</class>
+ <widget class="QMainWindow" name="window">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>900</width>
+    <height>700</height>
+   </rect>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="verticalLayout">
+    
+    <item>
+     <layout class="QHBoxLayout" name="photoButtonsLayout">
+      <item>
+       <widget class="QPushButton" name="addPhotosButton">
+        <property name="text">
+         <string>Add Photos</string>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: #9FAA74; color: white; font-weight: bold;</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="removePhotoButton">
+        <property name="text">
+         <string>Remove Selected</string>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: #d9534f; color: white; font-weight: bold;</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+
+    <item>
+     <widget class="QListWidget" name="imageListWidget">
+      <property name="selectionMode">
+       <enum>QAbstractItemView::ExtendedSelection</enum>
+      </property>
+     </widget>
+    </item>
+
+    <item>
+     <widget class="QWidget" name="viewer3DWidget" native="true">
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>400</height>
+        </size>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: lightgray;</string>
+       </property>
+     </widget>
+    </item>
+
+    <item>
+     <widget class="QProgressBar" name="progressBar">
+      <property name="value">
+       <number>0</number>
+      </property>
+     </widget>
+    </item>
+
+    <item>
+     <widget class="QPushButton" name="startButton">
+      <property name="text">
+       <string>Start Reconstruction</string>
+      </property>
+     </widget>
+    </item>
+
+   </layout>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
