@@ -1,8 +1,17 @@
-venv/
+# Временные папки сборки
 build/
+bin/
+*.exe
+
+# Временные файлы Python
 __pycache__/
-*.user
-*.ply
-*.npz
-data/
+*.pyc
+venv/
+
+# Данные программы
+staging_images/
+output.ply
+task.json
+
+# Настройки VS Code
 .vscode/

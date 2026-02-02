@@ -1,18 +1,31 @@
 #pragma once
-#include <QWidget>
-#include <QDebug>
+#include <QOpenGLWidget>
+#include <QOpenGLFunctions>
+#include <vector>
 
-class Viewer3DWidget : public QWidget
-{
+struct Point3D {
+    float x, y, z;
+    float r, g, b;
+};
+
+class Viewer3DWidget : public QOpenGLWidget, protected QOpenGLFunctions {
     Q_OBJECT
 public:
-    explicit Viewer3DWidget(QWidget *parent = nullptr) : QWidget(parent) {}
+    explicit Viewer3DWidget(QWidget *parent = nullptr);
+    void loadPly(const QString &filename);
 
-public slots:
-    // Головний метод, який викликає Controller
-    void loadPlyModel(const QString& plyFilePath) 
-    {
-        qDebug() << "Viewer3DWidget: Received command to load PLY model from path:" << plyFilePath;
-        // Тут має бути справжня логіка QOpenGLWidget / Qt3D
-    }
+protected:
+    void initializeGL() override;
+    void resizeGL(int w, int h) override;
+    void paintGL() override;
+    
+    void mousePressEvent(QMouseEvent *e) override;
+    void mouseMoveEvent(QMouseEvent *e) override;
+    void wheelEvent(QWheelEvent *e) override;
+
+private:
+    std::vector<Point3D> m_points;
+    float m_rotX = 0, m_rotY = 0;
+    float m_zoom = -10.0f;
+    QPoint m_lastMousePos;
 };

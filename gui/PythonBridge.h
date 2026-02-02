@@ -1,26 +1,32 @@
-#pragma once
-#include <QObject>
-#include <QStringList>
-#include <QFileInfo>
-#include <QTimer> // Для імітації затримки
+#ifndef PYTHONBRIDGE_H
+#define PYTHONBRIDGE_H
 
-class PythonBridge : public QObject
-{
+#include <QObject>
+#include <QProcess>
+#include <QString>
+
+class PythonBridge : public QObject {
     Q_OBJECT
 public:
-    explicit PythonBridge(QObject *parent = nullptr) : QObject(parent) {}
+    explicit PythonBridge(QObject *parent = nullptr);
 
-    // Метод, який викликає AppController
-    void runReconstruction(const QStringList& imagePaths);
+    // Метод для запуска процесса
+    void runReconstruction(const QString &imagesPath, const QString &calibrationFile);
 
 signals:
-    // Сигнал, який AppController очікує отримати
-    void backendTaskFinished(bool success, const QFileInfo& plyPath, const QString& errorMessage);
+    // Сигналы для обновления интерфейса
+    void progressUpdated(const QString &msg);
+    void reconstructionFinished(bool success, const QString &plyPath, const QString &msg);
 
 private slots:
-    // Слот, який викликається QTimer
-    void mockReconstructionComplete();
+    // Слоты для обработки ответов от Python
+    void onProcessFinished(int exitCode, QProcess::ExitStatus exitStatus);
+    void onReadyReadStandardOutput();
+    void onReadyReadStandardError();
 
 private:
-    QString m_mockPlyPath = "output/model_output.ply";
+    QProcess *m_process;
+    QString m_lastError; // <--- ВОТ ЭТОЙ СТРОЧКИ НЕ ХВАТАЛО
 };
+
+#endif // PYTHONBRIDGE_H

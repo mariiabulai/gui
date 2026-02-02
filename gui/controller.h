@@ -1,17 +1,20 @@
 #pragma once
 #include <QObject>
-#include <QStringList>
+#include "window.h"
+#include "PythonBridge.h"
 
-class controller : public QObject {
+class Controller : public QObject {
     Q_OBJECT
 public:
-    explicit controller(QObject *parent = nullptr);
+    Controller(Window* window, QObject* parent = nullptr);
 
-    // Метод для старту
-    void startReconstruction(const QStringList& images);
+public slots:
+    void startReconstruction();
 
-signals:
-    // Сигнали для GUI
-    void reconstructionStarted();
-    void reconstructionFinished();
+private slots:
+    void handleReconstructionResult(bool success, const QString& plyPath, const QString& msg);
+
+private:
+    Window* m_window;
+    PythonBridge* m_bridge;
 };
